@@ -1,0 +1,17 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: quarkus-service
+    url: http://quarkus:8080
+    routes:
+      - name: quarkus-products
+        paths:
+          - /api/products
+      - name: quarkus-orders
+        paths:
+          - /api/orders
+
+plugins:
+  - name: prometheus
+    enabled: true
