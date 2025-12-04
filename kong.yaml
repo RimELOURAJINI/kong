@@ -1,17 +1,32 @@
 _format_version: "3.0"
 _transform: true
 
+consumers:
+- username: fleet-client
+
+jwt_secrets:
+- consumer: fleet-client
+  key: fleet-key
+  secret: fleet-secret-123
+  algorithm: HS256
+
 services:
-  - name: quarkus-service
-    url: http://quarkus:8080
-    routes:
-      - name: quarkus-products
-        paths:
-          - /api/products
-      - name: quarkus-orders
-        paths:
-          - /api/orders
+- name: quarkus-service
+  url: http://quarkus:8080
+  routes:
+  - name: quarkus-products
+    paths:
+    - /api/products
+  - name: quarkus-orders
+    paths:
+    - /api/orders
+  plugins:
+  - name: jwt
+  - name: rate-limiting
+    config:
+      minute: 100
+      policy: local
 
 plugins:
-  - name: prometheus
-    enabled: true
+- name: prometheus
+  enabled: true
